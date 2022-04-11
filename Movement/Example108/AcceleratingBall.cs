@@ -23,6 +23,9 @@ namespace Movement
 	class AcceleratingBall : SpriteNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
+		private Vector2 Velocity;
+		private Vector2 Acceleration = new Vector2(0.01f, -0.04f);
+		private float MaxSpeed = 2500;
 
 
 		// constructor + call base constructor
@@ -37,13 +40,18 @@ namespace Movement
 		{
 			Move(deltaTime);
 			BounceEdges();
+			if (Velocity.Length() > MaxSpeed)
+			{
+				Acceleration = new Vector2(0, 0);
+			}
 		}
 
 		// your own private methods
 		private void Move(float deltaTime)
 		{
 			// TODO implement
-			// Position += Velocity * deltaTime;
+			Position += Velocity * deltaTime;
+			Velocity += Acceleration;
 		}
 
 		private void BounceEdges()
@@ -56,7 +64,20 @@ namespace Movement
 			// TODO implement...
 			if (Position.X > scr_width)
 			{
-				// ...
+				Position.X = 0;
+			}
+			else if (Position.X < 0)
+			{
+				Position.X = scr_width;
+			}
+
+			if (Position.Y > scr_height)
+			{
+				Position.Y = 0;
+			}
+			else if (Position.Y < 0)
+			{
+				Position.Y = scr_height;
 			}
 		}
 
