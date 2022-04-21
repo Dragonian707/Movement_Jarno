@@ -26,7 +26,7 @@ namespace Movement
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		private Vector2 Velocity;
 		private Vector2 Accelaration;
-		private Vector2 MaxSpeed = new Vector2(500, 500);
+		private Vector2 MaxSpeed = new Vector2(700, 700);
 
 		// constructor + call base constructor
 		public Follower() : base("resources/ball.png")
