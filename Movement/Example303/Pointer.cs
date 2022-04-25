@@ -24,7 +24,10 @@ namespace Movement
 	class Pointer : SpriteNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
-
+		private Vector2 Velocity;
+		private Vector2 Acceleration;
+		private Vector2 MaxSpeed = new Vector2(700, 700);
+		private float angle;
 
 		// constructor + call base constructor
 		public Pointer() : base("resources/spaceship.png")
@@ -37,7 +40,7 @@ namespace Movement
 		public override void Update(float deltaTime)
 		{
 			PointToMouse(deltaTime);
-			BounceEdges();
+			//BounceEdges();
 		}
 
 		// your own private methods
@@ -48,12 +51,20 @@ namespace Movement
 			Vector2 mouse = Raylib.GetMousePosition();
 			// Console.WriteLine(mouse);
 
-			Position = mouse; // incorrect!!
+			//Position = mouse; // incorrect!!
 
-			Rotation += deltaTime * Math.PI;  // incorrect!!
+			  // incorrect!!
 
 			// TODO implement
-			// Position += Velocity * deltaTime;
+			Position += Velocity * deltaTime;
+			Acceleration = mouse - Position;
+			Vector2.Normalize(Acceleration);
+			Acceleration /= 200f;
+			Velocity += Acceleration;
+			Velocity = Vector2.Min(Velocity, MaxSpeed);
+			Velocity = Vector2.Max(Velocity, -MaxSpeed);
+			angle = MathF.Atan2(Velocity.Y, Velocity.X);
+			Rotation = angle;
 		}
 
 		private void BounceEdges()

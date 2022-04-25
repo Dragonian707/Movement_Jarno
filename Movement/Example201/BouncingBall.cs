@@ -46,8 +46,8 @@ namespace Movement
 			// TODO implement
 			// Position += Velocity * deltaTime;
 
-			Vector2 wind = new Vector2(1.8f, 0.0f);
-			Vector2 gravity = new Vector2(0.0f, 9.8f);
+			Vector2 wind = new Vector2(0.18f, 0.0f);
+			Vector2 gravity = new Vector2(0.0f, 0.98f);
 
 			AddForce(wind);
 			AddForce(gravity);
@@ -56,7 +56,7 @@ namespace Movement
 
 		private void AddForce(Vector2 force)
 		{
-			Acceleration = force / 100;
+			Acceleration = force;
 			Velocity += Acceleration;
 		}
 
@@ -70,11 +70,13 @@ namespace Movement
 			// TODO implement...
 			if (Position.X > (scr_width - spr_width / 2))
 			{
-				Velocity.X *= -1;
+				Position.X = (scr_width -spr_width / 2);
+				Velocity.X *= -0.971f;
 			}
 			if (Position.Y >= (scr_height - spr_heigth / 2))
 			{
-				Velocity.Y *= -1;
+				Position.Y = (scr_height - spr_heigth / 2);
+				Velocity.Y *= -0.995f;
 			}
 		}
 

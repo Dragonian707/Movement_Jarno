@@ -25,7 +25,7 @@ namespace Movement
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		private Vector2 Velocity;
-		private Vector2 Accelaration;
+		private Vector2 Accelration;
 		private Vector2 MaxSpeed = new Vector2(700, 700);
 
 		// constructor + call base constructor
@@ -52,13 +52,13 @@ namespace Movement
 
 			// TODO implement
 			Position += Velocity * deltaTime;
-			Accelaration = mouse - Position;
-			Vector2.Normalize(Accelaration);
-			Accelaration /= 200f;
-			Velocity += Accelaration;
+			Accelration = mouse - Position;
+			Vector2.Normalize(Accelration);
+			Accelration /= 200f;
+			Velocity += Accelration;
 			Velocity = Vector2.Min(Velocity, MaxSpeed);
 			Velocity = Vector2.Max(Velocity, -MaxSpeed);
-			Accelaration *= 0f;
+			//Accelration *= 0f;
 		}
 
 		private void BounceEdges()
