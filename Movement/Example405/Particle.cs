@@ -22,10 +22,11 @@ Methods:
 
 namespace Movement
 {
-	class Particle : SpriteNode
+	class Particle : MoverNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
-		
+		Vector2 MaxSpeed;
+		float thrustForce;
 
 		// constructor + call base constructor
 		public Particle(float x, float y, Color color) : base("resources/spaceship.png")
@@ -33,20 +34,20 @@ namespace Movement
 			Position = new Vector2(x, y);
 			Scale = new Vector2(0.25f, 0.25f);
 			Color = color;
+			MaxSpeed = new Vector2(1000, 1000);
+			thrustForce = 0.05f;
 		}
 
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
 			Move(deltaTime);
+			float x = thrustForce * MathF.Cos(Convert.ToSingle(Rotation));
+			float y = thrustForce * MathF.Sin(Convert.ToSingle(Rotation));
+			addForce(new Vector2(x, y));
 			WrapEdges();
-		}
-
-		// your own private methods
-		private void Move(float deltaTime)
-		{
-			// TODO implement
-			// Position += Velocity * deltaTime;
+			Velocity = Vector2.Min(Velocity, MaxSpeed);
+			Velocity = Vector2.Max(Velocity, -MaxSpeed);
 		}
 
 		private void WrapEdges()
@@ -59,9 +60,27 @@ namespace Movement
 			// TODO implement...
 			if (Position.X > scr_width)
 			{
-				// ...
+				Position.X = 0;
+			}
+			else if (Position.X < 0)
+			{
+				Position.X = scr_width;
+			}
+
+			if (Position.Y > scr_height)
+			{
+				Position.Y = 0;
+			}
+			else if (Position.Y < 0)
+			{
+				Position.Y = scr_height;
 			}
 		}
 
+		public void addForce(Vector2 force)
+		{
+			Acceleration = force;
+			Velocity += Acceleration;
+		}
 	}
 }

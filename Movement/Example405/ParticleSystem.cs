@@ -10,6 +10,8 @@ namespace Movement
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		List<Particle> particles;
 		private List<Color> colors;
+		private Vector2 Velocity;
+		private Vector2 Acceleration;
 
 		// constructor + call base constructor
 		public ParticleSystem(float x, float y) : base()
@@ -44,7 +46,11 @@ namespace Movement
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
-			
+			Vector2 gravity = new Vector2(0.0f, 0.98f);
+			foreach (Particle particle in particles)
+			{
+				particle.addForce(gravity);
+			}
 		}
 
 

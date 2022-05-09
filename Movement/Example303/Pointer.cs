@@ -33,7 +33,7 @@ namespace Movement
 		public Pointer() : base("resources/spaceship.png")
 		{
 			Position = new Vector2(Settings.ScreenSize.X / 2, Settings.ScreenSize.Y / 2);
-			Color = Color.YELLOW;
+			Color = Color.DARKPURPLE;
 		}
 
 		// Update is called every frame
