@@ -39,7 +39,7 @@ namespace Movement
 		public override void Update(float deltaTime)
 		{
 			Move(deltaTime);
-			BounceEdges();
+			WrapEdges();
 			if (Velocity.Length() > MaxSpeed)
 			{
 				Acceleration = new Vector2(0, 0);
@@ -54,7 +54,7 @@ namespace Movement
 			Velocity += Acceleration;
 		}
 
-		private void BounceEdges()
+		private void WrapEdges()
 		{
 			float scr_width = Settings.ScreenSize.X;
 			float scr_height = Settings.ScreenSize.Y;

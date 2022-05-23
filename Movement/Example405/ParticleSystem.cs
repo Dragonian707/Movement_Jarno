@@ -27,6 +27,9 @@ namespace Movement
 			colors.Add(Color.BEIGE);
 			colors.Add(Color.SKYBLUE);
 			colors.Add(Color.YELLOW);
+			colors.Add(Color.VIOLET);
+			colors.Add(Color.MAROON);
+			colors.Add(Color.LIME);
 
 			particles = new List<Particle>();
 			Random rand = new Random();
@@ -39,6 +42,7 @@ namespace Movement
 				Particle p = new Particle(pos.X, pos.Y, colors[rand.Next()%colors.Count]);
 				particles.Add(p);
 				p.Rotation = (float)Math.Atan2(pos.Y, pos.X);
+				p.Velocity = new Vector2(0, -20);
 				AddChild(p);
 			}
 		}
@@ -46,13 +50,7 @@ namespace Movement
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
-			Vector2 gravity = new Vector2(0.0f, 0.98f);
-			foreach (Particle particle in particles)
-			{
-				particle.addForce(gravity);
-			}
+
 		}
-
-
 	}
 }

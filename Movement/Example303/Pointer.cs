@@ -26,7 +26,7 @@ namespace Movement
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		private Vector2 Velocity;
 		private Vector2 Acceleration;
-		private Vector2 MaxSpeed = new Vector2(700, 700);
+		private float MaxSpeed = 700;
 		private float angle;
 
 		// constructor + call base constructor
@@ -58,11 +58,12 @@ namespace Movement
 			// TODO implement
 			Position += Velocity * deltaTime;
 			Acceleration = mouse - Position;
-			Vector2.Normalize(Acceleration);
-			Acceleration /= 200f;
+			Acceleration = Vector2.Normalize(Acceleration);
 			Velocity += Acceleration;
-			Velocity = Vector2.Min(Velocity, MaxSpeed);
-			Velocity = Vector2.Max(Velocity, -MaxSpeed);
+			if (Velocity.Length() > MaxSpeed)
+			{
+				Velocity = Vector2.Normalize(Velocity) * MaxSpeed;
+			}
 			angle = MathF.Atan2(Velocity.Y, Velocity.X);
 			Rotation = angle;
 		}

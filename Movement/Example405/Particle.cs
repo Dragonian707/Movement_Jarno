@@ -27,6 +27,7 @@ namespace Movement
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		Vector2 MaxSpeed;
 		float thrustForce;
+		Vector2 gravity = new Vector2(0.0f, 50f);
 
 		// constructor + call base constructor
 		public Particle(float x, float y, Color color) : base("resources/spaceship.png")
@@ -35,19 +36,24 @@ namespace Movement
 			Scale = new Vector2(0.25f, 0.25f);
 			Color = color;
 			MaxSpeed = new Vector2(1000, 1000);
-			thrustForce = 0.05f;
+			thrustForce = 30f;
 		}
 
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
 			Move(deltaTime);
-			float x = thrustForce * MathF.Cos(Convert.ToSingle(Rotation));
-			float y = thrustForce * MathF.Sin(Convert.ToSingle(Rotation));
-			addForce(new Vector2(x, y));
+			float x = thrustForce * MathF.Cos((float)Rotation);
+			float y = thrustForce * MathF.Sin((float)Rotation);
+			AddForce(new Vector2(x, y));
+			AddForce(gravity);
+			// Velocity *= 0.2f;
+			Position += Velocity * deltaTime;
+			// Velocity = Vector2.Min(Velocity, MaxSpeed);
+			// Velocity = Vector2.Max(Velocity, -MaxSpeed);
 			WrapEdges();
-			Velocity = Vector2.Min(Velocity, MaxSpeed);
-			Velocity = Vector2.Max(Velocity, -MaxSpeed);
+			// PointToVelocity();
+			Rotation = Math.Atan2(Velocity.Y, Velocity.X);
 		}
 
 		private void WrapEdges()
@@ -77,10 +83,15 @@ namespace Movement
 			}
 		}
 
-		public void addForce(Vector2 force)
+		// public void addForce(Vector2 force)
+		// {
+		// 	Acceleration = force;
+		// 	Velocity += Acceleration;
+		// }
+
+		private void PointToVelocity()
 		{
-			Acceleration = force;
-			Velocity += Acceleration;
+			Rotation = MathF.Atan2(Velocity.Y, Velocity.X);
 		}
 	}
 }
