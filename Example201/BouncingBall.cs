@@ -51,13 +51,15 @@ namespace Movement
 
 			AddForce(wind);
 			AddForce(gravity);
+			Acceleration = Vector2.Normalize(Acceleration);
+			Velocity += Acceleration;
 			Position += Velocity * deltaTime;
 		}
 
 		private void AddForce(Vector2 force)
 		{
-			Acceleration = force;
-			Velocity += Acceleration;
+			Acceleration += force;
+			// Velocity += Acceleration;
 		}
 
 		private void BounceEdges()
