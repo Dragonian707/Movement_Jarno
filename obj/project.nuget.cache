@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ko0nxpPJznB2+S7GtZVuSX2BL6KXR3KAs31P3fum2A1zYTi1UmgMfS7tmFrt20oZrb3X6Yea2qQorf7IdCviVA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Jarno School\\source\\repos\\Movement_Jarno\\Movement\\Movement.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jarno School\\.nuget\\packages\\raylib-cs\\4.0.0.1\\raylib-cs.4.0.0.1.nupkg.sha512",
+    "C:\\Users\\Jarno School\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
