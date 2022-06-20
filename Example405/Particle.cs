@@ -27,68 +27,47 @@ namespace Movement
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		Vector2 MaxSpeed;
 		float thrustForce;
+		float lifeTime;
 		Vector2 gravity = new Vector2(0.0f, 50f);
+		public Vector2 initPos;
+		public bool dead = false;
 
 		// constructor + call base constructor
-		public Particle(float x, float y, Color color) : base("resources/spaceship.png")
+		public Particle(float x, float y, Color color, int life) : base("resources/spaceship.png")
 		{
 			Position = new Vector2(x, y);
+			initPos = Position;
 			Scale = new Vector2(0.25f, 0.25f);
 			Color = color;
 			MaxSpeed = new Vector2(1000, 1000);
 			thrustForce = 30f;
+			lifeTime = life;
 		}
 
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
 			Move(deltaTime);
-			// float x = thrustForce * MathF.Cos((float)Rotation);
-			// float y = thrustForce * MathF.Sin((float)Rotation);
-			// AddForce(new Vector2(x, y));
-			// AddForce(gravity);
-			
-			// Velocity *= 0.2f;
+			AddForce(gravity);
 			Position += Velocity * deltaTime;
-			// Velocity = Vector2.Min(Velocity, MaxSpeed);
-			// Velocity = Vector2.Max(Velocity, -MaxSpeed);
-			WrapEdges();
-			// PointToVelocity();
 			Rotation = Math.Atan2(Velocity.Y, Velocity.X);
+			lifeTime -= 1 * deltaTime * 60;
+			if (lifeTime <= 0)
+			{
+				dead = true;
+			}
 		}
 
-		private void WrapEdges()
+		public void Reset(int newLifeTime)
 		{
-			float scr_width = Settings.ScreenSize.X;
-			float scr_height = Settings.ScreenSize.Y;
-			float spr_width = TextureSize.X;
-			float spr_heigth = TextureSize.Y;
-
-			// TODO implement...
-			if (Position.X > scr_width)
-			{
-				Position.X = 0;
-			}
-			else if (Position.X < 0)
-			{
-				Position.X = scr_width;
-			}
-
-			if (Position.Y > scr_height)
-			{
-				Position.Y = 0;
-			}
-			else if (Position.Y < 0)
-			{
-				Position.Y = scr_height;
-			}
+			lifeTime = newLifeTime;
+			dead = false;
+			Position = initPos;
+			Rotation = (float)Math.Atan2(Position.Y, Position.X);
+			float X = 50 * MathF.Cos((float)Rotation);
+			float Y = 50 * MathF.Sin((float)Rotation);
+			Velocity = new Vector2(X, Y);
 		}
-
-		// public void addForce(Vector2 force)
-		// {
-		// 	Acceleration = force;
-		// 	Velocity += Acceleration;
-		// }
 
 		private void PointToVelocity()
 		{
